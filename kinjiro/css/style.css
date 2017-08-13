@@ -1,0 +1,136 @@
+@charset "UTF-8";
+#wrapper {
+  overflow: hidden;
+  height: 800px;
+}
+
+#boxLeft {
+  float: left;
+  overflow: hidden;
+  width: 50%;
+  height: 100%;
+}
+
+#mainNav {
+  float: left;
+  width: 15%;
+  height: 100%;
+}
+
+li {
+  border: solid 2px;
+  text-align: center;
+  padding: 10px 5px;
+}
+
+a {
+  text-decoration: none;
+}
+
+#timer {
+  float: left;
+  width: 85%;
+  height: 100%;
+  text-align: center;
+  padding-top: 10%;
+}
+
+#clockid {
+  width: 60%;
+  height: 40%;
+  margin-bottom: 10px;
+}
+
+#RealtimeClockArea {
+  font-size: 40px;
+  margin: 5%;
+}
+
+.red {
+  color: red;
+  font-size: 30px;
+  margin: 5%;
+}
+
+form {
+  height: 45%;
+}
+
+button.formButton {
+  font-size: 30px;
+  padding: 10px 30px;
+  margin: 0 45px;
+}
+
+#boxRight {
+  float: left;
+  width: 50%;
+  height: 100%;
+}
+
+#calendar {
+  width: 100%;
+  height: 50%;
+  text-align: center;
+  margin-top: 10%;
+}
+
+.calendar-title {
+  text-align: center;
+}
+.calendar-table {
+  margin: 0 auto;
+}
+.is-today {
+  color: red;
+  border: solid 1px #000;
+}
+
+table {
+  border: solid 2px;
+}
+
+td {
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  padding: 10px 25px;
+  border: solid 2px;
+}
+
+th {
+  border: solid 2px;
+  padding: 10px;
+}
+
+#application {
+  width: 100%;
+  height: 25%;
+  margin-bottom: 15%;
+}
+
+#appBox {
+  position: relative;
+  margin: 2em 0;
+  /*padding: 0.5em 1em;*/
+  padding: 20px 30px;
+  border-radius: 0 5px 5px 5px;
+  border: solid 3px #000;
+}
+
+#appBox .box-title {
+  position: absolute;
+  display: inline-block;
+  top: -27px;
+  left: -3px;
+  padding: 0 15px;
+  height: 25px;
+  line-height: 25px;
+  vertical-align: middle;
+  font-size: 17px;
+  background: #000;
+  color: #ffffff;
+  /*font-weight: bold;*/
+  border-radius: 5px 5px 0 0;
+}

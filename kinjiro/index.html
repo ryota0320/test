@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>sinjiro</title>
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="js/calendar.js"></script>
+    <script type="text/javascript" src="js/sample.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/reset.css" media="all">
+    <link rel="stylesheet" type="text/css" href="css/style.css" media="all">
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="boxLeft">
+        <nav id="mainNav">
+          <ul>
+            <li><a href="#"><img src="img/top.svg" alt="トップ" width="50px" height="50px"><br>トップ</a></li>
+            <li><a href="#"><img src="img/kinmu.png" alt="勤務表" width="50px" height="50px"><br>勤務表</a></li>
+            <li><a href="#"><img src="img/sinsei.png" alt="各種申請" width="50px" height="50px"><br>各種申請</a></li>
+            <li><a href="#"><img src="img/setting.png" alt="個人設定" width="50px" height="50px"><br>個人設定</a></li>
+          </ul>
+        </nav>
+
+        <div id="timer">
+          <canvas id="clockid"></canvas><br>
+          <p id="RealtimeClockArea"></p>
+          <p class="red">打刻漏れがあります。</p>
+          <form id="form" action="index.html" method="post">
+            <button type="button" name="goWork" class="formButton">出勤</button>
+            <button type="button" name="clockOut" class="formButton">退勤</button>
+          </form>
+        </div>
+
+
+      </div><!-- boxLeft END -->
+      <div id="boxRight">
+        <div id="calendar">
+          <h2 class="calendar-title"><span id="js-year"></span>年 <span id="js-month"></span>月</h2>
+            <table class="calendar-table">
+              <thead>
+                <tr><th>日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th></tr>
+              </thead>
+              <tbody id="js-calendar-body"></tbody>
+            </table>
+        </div><!-- calendar END -->
+        <div id="application">
+          <div id="appBox">
+            <span class="box-title">申請状況</span>
+            <p>・申請状況申請状況申請状況申請状況</p>
+            <p>・申請状況申請状況申請状況申請状況</p>
+            <p>・申請状況申請状況申請状況申請状況</p>
+            <p>・申請状況申請状況申請状況申請状況</p>
+          </div>
+        </div>
+
+
+      </div><!-- boxRight END -->
+    </div>
+    <script type="text/javascript">
+    function set2fig(num) {
+      // 桁数が1桁だったら先頭に0を加えて2桁に調整する
+      var ret;
+      if( num < 10 ) { ret = "0" + num; }
+      else { ret = num; }
+      return ret;
+    }
+    function RealtimeClock() {
+      var nowTime = new Date(); //  現在日時を得る
+      var nowHour = set2fig(nowTime.getHours()); // 時を抜き出す
+      var nowMin  = set2fig(nowTime.getMinutes()); // 分を抜き出す
+      var nowSec  = set2fig(nowTime.getSeconds()); // 秒を抜き出す
+      var msg = nowHour + ":" + nowMin + ":" + nowSec;
+      document.getElementById("RealtimeClockArea").innerHTML = msg;
+    }
+    setInterval('RealtimeClock()',1000);
+    
+    var $window = $(window);
+    var $year = $('#js-year');
+    var $month = $('#js-month');
+    var $tbody = $('#js-calendar-body');
+
+    var today = new Date();
+    var currentYear = today.getFullYear(),
+        currentMonth = today.getMonth();
+
+    $window.on('load',function(){
+      calendarHeading(currentYear, currentMonth);
+      calendarBody(currentYear, currentMonth, today);
+    });
+
+    function calendarBody(year, month, today){
+      var todayYMFlag = today.getFullYear() === year && today.getMonth() === month ? true : false; // 本日の年と月が表示されるカレンダーと同じか判定
+      var startDate = new Date(year, month, 1); // その月の最初の日の情報
+      var endDate  = new Date(year, month + 1 , 0); // その月の最後の日の情報
+      var startDay = startDate.getDay();// その月の最初の日の曜日を取得
+      var endDay = endDate.getDate();// その月の最後の日の曜日を取得
+      var textSkip = true; // 日にちを埋める用のフラグ
+      var textDate = 1; // 日付(これがカウントアップされます)
+      var tableBody =''; // テーブルのHTMLを格納する変数
+
+      for (var row = 0; row < 6; row++){
+        var tr = '<tr>';
+
+        for (var col = 0; col < 7; col++) {
+          if (row === 0 && startDay === col){
+            textSkip = false;
+          }
+          if (textDate > endDay) {
+            textSkip = true;
+          }
+          var addClass = todayYMFlag && textDate === today.getDate() ? 'is-today' : '';
+          var textTd = textSkip ? '&nbsp;' : textDate++;
+          var td = '<td class="'+addClass+'">'+textTd+'</td>';
+          tr += td;
+        }
+        tr += '</tr>';
+        tableBody += tr;
+      }
+      $tbody.html(tableBody);
+    }
+
+    function calendarHeading(year, month){
+      $year.text(year);
+      $month.text(month + 1);
+    }
+    </script>
+  </body>
+</html>
